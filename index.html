@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Absensi Karyawan Dintara</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #06d2e9, #f1f8e9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 30px 15px;
+    }
+
+    .container {
+      text-align: center;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .logo {
+      max-width: 120px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #555;
+      font-size: 15px;
+      margin-bottom: 25px;
+    }
+
+    .btn {
+      background-color: #2b7a78;
+      color: white;
+      border: none;
+      padding: 14px 25px;
+      margin: 10px 0;
+      font-size: 16px;
+      border-radius: 8px;
+      width: 100%;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #205e5d;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- GANTI src dengan logo kamu -->
+    <img src="LogoDintara.png" alt="Logo" class="logo">
+
+    <h2>Absensi Karyawan</h2>
+    <p>Silakan pilih kehadiran atau pulang, lokasi akan terdeteksi otomatis.</p>
+
+    <button class="btn" onclick="openForm('hadir')">Absen Kehadiran</button>
+    <button class="btn" onclick="openForm('pulang')">Absen Pulang</button>
+
+    <div class="footer">© 2025 Sistem Absensi Online </div>
+  </div>
+
+  <script>
+  function openForm(mode) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        const lokasi = `https://www.google.com/maps?q=${lat},${lon}`;
+
+        let formURL = "";
+
+        // Ubah URL form di sini sesuai mode
+        if (mode === "hadir") {
+          formURL = "https://docs.google.com/forms/d/e/1FAIpQLSfVux8uNhA-5-uHof2J4Vk8LGttwKomJ612-Ltd47iRZU7wCQ/viewform?usp=pp_url&entry.1515299658=" + encodeURIComponent(lokasi);
+        } else if (mode === "pulang") {
+          formURL = "https://docs.google.com/forms/d/e/1FAIpQLSc5PK3Pr5gFnx6kCdI2sD3O5ahTp3Tx0TKb8WWEEXFwk44BmA/viewform?usp=pp_url&entry.1515299658=" + encodeURIComponent(lokasi);
+        }
+
+        window.open(formURL, "_blank");
+      }, function(error) {
+        alert("Gagal mendapatkan lokasi. Pastikan izin lokasi diaktifkan.");
+      });
+    } else {
+      alert("Browser tidak mendukung deteksi lokasi.");
+    }
+  }
+</script>
+
+</body>
+</html>
